@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Code Editor</title>
+  
+  <script type="module" crossorigin src="/assets/index-46889b4b.js"></script>
+  <link rel="stylesheet" href="/assets/index-ab963342.css">
+</head>
+<body>
+  
+
+  <div class="editor-container">
+    
+
+    <div class="editor-content">
+      <div class="editor-header">
+       
+        <img src="data:image/png;base64,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" alt="Logo" class="logo">
+       
+        <h4 style="color: rgb(10, 9, 9);">Visual Applications Playground</h4><br>
+      </div>
+      
+      <div class="tab-container">
+        <button class="tab-btn" onclick="openTab(event, 'div0')">
+          Config.
+        </button>
+
+        <button class="tab-btn" onclick="openTab(event, 'div1')">Javascript</button>
+        <button class="tab-btn" onclick="openTab(event, 'div2')">HTML</button>
+        <button class="tab-btn" onclick="openTab(event, 'divSamples')">SAMPLES</button>
+        <button class="tab-btn" >BACKEND</button>
+        <button class="tab-btn" >SAVE</button>
+        <button class="tab-btn"  onclick="runCode()" >RUN</button>
+        <button class="tab-btn" >PUBLISH</button>
+
+
+
+      </div>
+      
+      <div id="div0" class="tab-content">
+        <h2>Config</h2>
+      </div>
+
+      <div id="div1" class="tab-content">
+        <div class="editor-textarea" id="editor"></div>
+      </div>
+      
+      <div id="div2" class="tab-content">
+        <div class="editor-textarea" id="htmleditor"></div>
+      </div>
+
+      <div id="divSamples" class="tab-content">
+        <table id="sampleTable">
+          <thead>
+              <tr>
+                  <th>Sample Name</th>
+              </tr>
+          </thead>
+          <tbody id="sampleTableBody">
+              <!-- Table rows will be added here dynamically -->
+          </tbody>
+      </table>
+      </div>
+
+    </div>
+
+    <div id="result-container">
+    <h1>RESULT</h1>
+    </div>
+
+  </div>
+
+  
+
+  
+
+  
+  
+
+  
+  
+
+  <script>
+    function openTab(evt, tabName) {
+      var tabContents = document.getElementsByClassName("tab-content");
+      for (var i = 0; i < tabContents.length; i++) {
+        tabContents[i].style.display = "none";
+      }
+      
+      var tabBtns = document.getElementsByClassName("tab-btn");
+      for (var i = 0; i < tabBtns.length; i++) {
+        tabBtns[i].className = tabBtns[i].className.replace(" active", "");
+      }
+      
+      document.getElementById(tabName).style.display = "block";
+      evt.currentTarget.className += " active";
+    }
+  </script>
+  <script>
+        function getConfig() {
+          fetch('/getConfig')
+            .then(response => {
+              if (!response.ok) {
+                throw new Error('Network response was not ok');
+              }
+              return response.text(); // Assuming the response is HTML content
+            })
+            .then(htmlContent => {
+              // Update div0 with the fetched HTML content
+              document.getElementById('div0').innerHTML = htmlContent;
+              
+            })
+            .catch(error => {
+              console.error('There was a problem with the fetch operation:', error);
+            });
+        }
+
+        function getSamples() {
+    fetch('/getSamples')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json(); // Assuming the response is JSON data
+        })
+        .then(samples => {
+            const tableBody = document.getElementById('sampleTableBody');
+            samples.forEach(sample => {
+                const row = tableBody.insertRow();
+                const nameCell = row.insertCell();
+                const readmeCell = row.insertCell();
+                const buttonCell = row.insertCell();
+                
+                nameCell.textContent = sample.name;
+                
+                // Set readme text if available, otherwise set it to an empty string
+                readmeCell.textContent = sample.readme || '';
+
+                // Create a button element for each sample
+                const button = document.createElement('button');
+                button.textContent = 'Select';
+                button.addEventListener('click', () => selectSample(sample.name)); // Attach click event listener
+                
+                // Append the button to the button cell
+                buttonCell.appendChild(button);
+            });
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+        });
+}
+
+ 
+
+        function selectSample(sampleName) {
+            fetch('/getSample', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ sampleName: sampleName })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Assuming the response contains sampleHTML and sampleJS fields
+                const { html, js } = data;
+
+
+                jsEditorView.dispatch({
+                changes: {
+                  from: 0,
+                  to: jsEditorView.state.doc.length,
+                  insert: js
+                }
+                });
+
+                htmlEditorView.dispatch({
+                changes: {
+                  from: 0,
+                  to: htmlEditorView.state.doc.length,
+                  insert: html
+                }
+                });
+
+                
+                
+            })
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+            });
+        }
+
+
+     getConfig();   
+     getSamples();
+  </script>
+  
+  <script>
+    function runCode() {
+  const htmlCode = htmlEditorView.state.doc.toString();
+  const jsCode = jsEditorView.state.doc.toString();
+  const resultContainer = document.getElementById('result-container');
+
+  // Clear previous content of the container
+  resultContainer.innerHTML = '';
+
+  // Create a new iframe element
+  const iframe = document.createElement('iframe');
+  iframe.style.width = '100%';
+  iframe.style.height = '100%';
+  iframe.style.border = 'none';
+  
+  // Append the iframe to the result container first
+  resultContainer.appendChild(iframe);
+
+  // Write the combined code to the iframe document
+  iframe.contentDocument.open();
+  iframe.contentDocument.write('\x3Chtml\x3E\x3Chead\x3E\x3C/head\x3E\x3Cbody\x3E'
+        + htmlCode
+        + '\x3Cscript type="module"\x3E'
+        + jsCode
+        + '\x3C/script\x3E\x3C/body\x3E\x3C/html\x3E');
+  iframe.contentDocument.close();
+}
+
+  </script>
+
+
+</body>
+</html>

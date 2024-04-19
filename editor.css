@@ -1,0 +1,237 @@
+/* Add this style to your existing styles or in the head of your HTML */
+
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    
+  }
+
+  .tab-container {
+    overflow: hidden;
+  }
+  
+  .tab-btn {
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    color: #333;
+    padding: 10px 20px;
+    cursor: pointer;
+    float: left;
+  }
+  
+  .tab-btn:hover {
+    background-color: #ddd;
+  }
+  
+  .tab-content {
+    display: none;
+    padding: 20px;
+  }
+  
+  .tab-content h3 {
+    margin-top: 0;
+  }
+  
+  .toolbox {
+    /* Other styles */
+    position: relative;
+    display: block; /* Initially visible */
+    margin-bottom: 10px; /* Adjust margin as needed */
+  }
+  
+  .toolbox.expanded {
+    width: 200px; /* Adjust width as needed */
+  }
+  
+  .toolbox img {
+    cursor: pointer; /* Change cursor to pointer for better UX */
+  }
+
+  .editor-container {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    height: 100vh;
+   
+   
+    background-color: transparent;
+    margin-left: 5px;
+    
+  }
+
+  .editor-content {
+    flex-grow: 1; /* The editor content will occupy all available space */
+    overflow: hidden; /* Hide the overflow content when resized */
+    resize: horizontal; /* Allow horizontal resizing */
+    overflow-x: auto; /* Add horizontal scrollbar if needed */
+    border: 1px solid #ccc;
+  }
+
+  #result-container {
+    flex-grow: 1;
+  
+  }
+  
+  
+  
+  .editor-textarea {
+     
+     
+    width: 100%;
+    min-height: 150px;
+    padding: 10px;
+    box-sizing: border-box;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    background-color: #ffffff;
+     
+    resize: both; /* Allow resizing both horizontally and vertically */
+    overflow: auto; /* Add scrollbar if content overflows */
+  }
+
+  
+  
+  textarea:focus {
+    outline: none;
+    border-color: #66d9ef;
+  }
+  
+  button {
+    padding: 10px;
+    background-color: #66d9ef;
+    color: #272822;
+    border: none;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #5cb8cc;
+  }
+  
+ 
+  
+  .selection-wrapper {
+    position: absolute;
+    width: 160px;
+    height: 160px;
+    pointer-events: none;
+    visibility: visible;
+    opacity: 1;
+    transition: visibility 0s 0.2s, opacity 0.2s ease-in;
+  }
+  .selection-wrapper-visible {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 0.2s ease-out;
+  }
+  .selection-wrapper svg {
+    fill: #2e2;
+    stroke: #000;
+    stroke-width: 1.1px;
+  }
+
+  .info-window {
+    position: absolute;
+    top: 50%; /* Adjust this as needed */
+    right: 10px; /* Adjust this value to set the distance from the right edge */
+    width: 300px;
+    height: 200px;
+    border: 2px solid #000;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    font-family: Arial, sans-serif;
+    overflow: hidden;
+}
+
+.info-window-header {
+    background-color: #817f7f;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.info-window-header img {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.close-btn {
+    background-color: transparent;
+    border: none;
+    color: #fff;
+    cursor: pointer;
+}
+
+.info-window-content {
+    padding: 10px;
+}
+
+.toolbox {
+  position: absolute;
+  top: 60px; /* Adjust this as needed */
+  left: 5px; /* Adjust this value to set the distance from the right edge */
+  width: 30px;
+  height: 200px;
+  border: none;
+  background-color: transparent;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  overflow: visible;
+}
+
+.toolbox-option {
+  position: relative;
+  cursor: pointer;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  z-index: 1;
+}
+.toolbox-option img {
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
+  background-color: #ffffff;
+}
+
+
+.icon_container {
+  background-color: #f0f0f0; /* Set background color */
+        padding: 10px; /* Add padding for spacing */
+        display: inline-block; /* Ensure container wraps around image */
+        width: 100px; /* Set a fixed width for the container */
+        height: 50px; /* Set a fixed height for the container */
+        overflow: hidden; /* Hide overflow content */
+        position: relative; /* Ensure positioning context */
+}
+
+.ttooltip {
+  
+  background-color: #000000;
+  color: #fff; /* Adjust the text color for better visibility */
+  padding: 5px;
+  border-radius: 3px;
+  display: none;
+  z-index: 2; /* Ensure tooltip is above toolbox option */
+  white-space: nowrap;
+}
+
+.toolbox-option:hover .ttooltip {
+  display: block;
+}
+
+
+/* Define the style for the active tab */
+.tab-btn.active {
+  background-color: #333; /* Darker color for active tab */
+  color: #fff; /* White text color for active tab */
+}
+
+#editor, #htmleditor {
+  height: 400px; /* Set the desired height */
+  overflow: auto; /* Ensure overflow is set to auto or scroll */
+}

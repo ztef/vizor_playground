@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Code Editor</title>
+  <link rel="stylesheet" href="editor.css">
+</head>
+<body>
+  
+
+  <div class="editor-container">
+    
+
+    <div class="editor-content">
+      <div class="editor-header">
+       
+        <img src="icon.png" alt="Logo" class="logo">
+       
+        <h4 style="color: rgb(10, 9, 9);">Visual Applications Playground</h4><br>
+      </div>
+      
+      <div class="tab-container">
+        <button class="tab-btn" onclick="openTab(event, 'div0')">
+          Config.
+        </button>
+
+        <button class="tab-btn" onclick="openTab(event, 'div1')">Javascript</button>
+        <button class="tab-btn" onclick="openTab(event, 'div2')">HTML</button>
+        <button class="tab-btn" onclick="openTab(event, 'divSamples')">SAMPLES</button>
+        <button class="tab-btn" >BACKEND</button>
+        <button class="tab-btn" >SAVE</button>
+        <button class="tab-btn"  onclick="runCode()" >RUN</button>
+        <button class="tab-btn" >PUBLISH</button>
+
+
+
+      </div>
+      
+      <div id="div0" class="tab-content">
+        <h2>Config</h2>
+      </div>
+
+      <div id="div1" class="tab-content">
+        <div class="editor-textarea" id="editor"></div>
+      </div>
+      
+      <div id="div2" class="tab-content">
+        <div class="editor-textarea" id="htmleditor"></div>
+      </div>
+
+      <div id="divSamples" class="tab-content">
+        <table id="sampleTable">
+          <thead>
+              <tr>
+                  <th>Sample Name</th>
+              </tr>
+          </thead>
+          <tbody id="sampleTableBody">
+              <!-- Table rows will be added here dynamically -->
+          </tbody>
+      </table>
+      </div>
+
+    </div>
+
+    <div id="result-container">
+    <h1>RESULT</h1>
+    </div>
+
+  </div>
+
+  
+
+  
+
+  
+  <script type="module" src="/src/main.ts"></script>
+
+  
+  
+
+  <script>
+    function openTab(evt, tabName) {
+      var tabContents = document.getElementsByClassName("tab-content");
+      for (var i = 0; i < tabContents.length; i++) {
+        tabContents[i].style.display = "none";
+      }
+      
+      var tabBtns = document.getElementsByClassName("tab-btn");
+      for (var i = 0; i < tabBtns.length; i++) {
+        tabBtns[i].className = tabBtns[i].className.replace(" active", "");
+      }
+      
+      document.getElementById(tabName).style.display = "block";
+      evt.currentTarget.className += " active";
+    }
+  </script>
+  <script>
+        function getConfig() {
+          fetch('/getConfig')
+            .then(response => {
+              if (!response.ok) {
+                throw new Error('Network response was not ok');
+              }
+              return response.text(); // Assuming the response is HTML content
+            })
+            .then(htmlContent => {
+              // Update div0 with the fetched HTML content
+              document.getElementById('div0').innerHTML = htmlContent;
+              
+            })
+            .catch(error => {
+              console.error('There was a problem with the fetch operation:', error);
+            });
+        }
+
+        function getSamples() {
+    fetch('/getSamples')
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json(); // Assuming the response is JSON data
+        })
+        .then(samples => {
+            const tableBody = document.getElementById('sampleTableBody');
+            samples.forEach(sample => {
+                const row = tableBody.insertRow();
+                const nameCell = row.insertCell();
+                const readmeCell = row.insertCell();
+                const buttonCell = row.insertCell();
+                
+                nameCell.textContent = sample.name;
+                
+                // Set readme text if available, otherwise set it to an empty string
+                readmeCell.textContent = sample.readme || '';
+
+                // Create a button element for each sample
+                const button = document.createElement('button');
+                button.textContent = 'Select';
+                button.addEventListener('click', () => selectSample(sample.name)); // Attach click event listener
+                
+                // Append the button to the button cell
+                buttonCell.appendChild(button);
+            });
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+        });
+}
+
+ 
+
+        function selectSample(sampleName) {
+            fetch('/getSample', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ sampleName: sampleName })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Assuming the response contains sampleHTML and sampleJS fields
+                const { html, js } = data;
+
+
+                jsEditorView.dispatch({
+                changes: {
+                  from: 0,
+                  to: jsEditorView.state.doc.length,
+                  insert: js
+                }
+                });
+
+                htmlEditorView.dispatch({
+                changes: {
+                  from: 0,
+                  to: htmlEditorView.state.doc.length,
+                  insert: html
+                }
+                });
+
+                
+                
+            })
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+            });
+        }
+
+
+     getConfig();   
+     getSamples();
+  </script>
+  
+  <script>
+    function runCode() {
+  const htmlCode = htmlEditorView.state.doc.toString();
+  const jsCode = jsEditorView.state.doc.toString();
+  const resultContainer = document.getElementById('result-container');
+
+  // Clear previous content of the container
+  resultContainer.innerHTML = '';
+
+  // Create a new iframe element
+  const iframe = document.createElement('iframe');
+  iframe.style.width = '100%';
+  iframe.style.height = '100%';
+  iframe.style.border = 'none';
+  
+  // Append the iframe to the result container first
+  resultContainer.appendChild(iframe);
+
+  // Write the combined code to the iframe document
+  iframe.contentDocument.open();
+  iframe.contentDocument.write('\x3Chtml\x3E\x3Chead\x3E\x3C/head\x3E\x3Cbody\x3E'
+        + htmlCode
+        + '\x3Cscript type="module"\x3E'
+        + jsCode
+        + '\x3C/script\x3E\x3C/body\x3E\x3C/html\x3E');
+  iframe.contentDocument.close();
+}
+
+  </script>
+
+
+</body>
+</html>
