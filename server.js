@@ -13,4 +13,14 @@ app.use(getSamples);
 app.use(express.json());
 app.use(getSample);
 
+app.use(express.static('public/libs', {
+    setHeaders: (res, path, stat) => {
+        // Check if the file is a JavaScript file
+        if (path.endsWith('.js')) {
+            // Set the Content-Type header to application/javascript
+            res.set('Content-Type', 'application/javascript');
+        }
+    }
+}));
+
 ViteExpress.listen(app, 3000, () => console.log("Server is listening..."));

@@ -218,13 +218,31 @@
   // Append the iframe to the result container first
   resultContainer.appendChild(iframe);
 
+  const external = '\x3Cscript src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"\x3E\x3C/script\x3E'
+  + '\x3Cscript src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"\x3E\x3C/script\x3E'
+  + '\x3Clink rel="stylesheet" href="/styles/jquery/ui/1.12.1/themes/base/jquery-ui.css"\x3E'
+  + '\x3Clink rel="stylesheet" href="/styles/all.min.css"\x3E'
+  + '\x3Clink rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"\x3E';
+
+
   // Write the combined code to the iframe document
   iframe.contentDocument.open();
   iframe.contentDocument.write('\x3Chtml\x3E\x3Chead\x3E\x3C/head\x3E\x3Cbody\x3E'
-        + htmlCode
-        + '\x3Cscript type="module"\x3E'
-        + jsCode
-        + '\x3C/script\x3E\x3C/body\x3E\x3C/html\x3E');
+  + external
+  + htmlCode
+  + '\x3Cscript type="importmap"\x3E\n'
+  + '\x7B\n'
+  + '  "imports": \x7B\n'
+  + '    "/vizor/*": "/libs/vizor/viOne*",\n'
+  + '    "three": "/libs/three/three.module.js",\n'
+  + '    "three/addons/": "/libs/three/jsm/"'
+  + '  \x7D\n'
+  + '\x7D\n'
+  + '\x3C/script\x3E'
+  + '\x3Cscript type="module"\x3E'
+  + jsCode
+  + '\x3C/script\x3E\x3C/body\x3E\x3C/html\x3E');
+
   iframe.contentDocument.close();
 }
 
