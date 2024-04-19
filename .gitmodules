@@ -1,0 +1,3 @@
+[submodule "public/libs/vizor/viOne"]
+	path = public/libs/vizor/viOne
+	url = https://github.com/ztef/viOne.git
