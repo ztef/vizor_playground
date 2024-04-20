@@ -23,6 +23,10 @@ app.use(express.static('public/libs', {
     }
 }));
 
+import backendRouter from './routes/vBack/routes/backendServices.cjs';
+
+app.use('/api',backendRouter);
+
 const port = process.env.PORT || 3000
 
 ViteExpress.listen(app, port, () => console.log("Server is listening..."));
