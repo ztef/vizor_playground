@@ -4,3 +4,6 @@
 [submodule "routes/vBack"]
 	path = routes/vBack
 	url = https://github.com/ztef/viBack.git
+[submodule "dist/libs/vizor/viOne"]
+	path = dist/libs/vizor/viOne
+	url = https://github.com/ztef/viOne.git
